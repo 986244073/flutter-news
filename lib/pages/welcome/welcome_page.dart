@@ -81,7 +81,9 @@ Widget _buildStartButton() {
     height: 44.h,
     margin: EdgeInsets.only(bottom: 20.h),
     child: FlatButton(
-      onPressed: () {},
+      onPressed: () {
+//        Navigator.of().pushNamed('sign_up');
+      },
       color: AppColors.primaryElement,
       textColor: AppColors.primaryElementText,
       child: Text("Get started"),
