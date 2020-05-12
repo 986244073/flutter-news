@@ -1,7 +1,11 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:getflutter/colors/gf_color.dart';
+import 'package:getflutter/getflutter.dart';
 import 'package:news/values/values.dart';
+import 'package:news/widgets/input.dart';
 
 // 登陆界面
 class SignIn extends StatefulWidget {
@@ -10,6 +14,9 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   // logo
   Widget _buildLogo() {
     return Container(
@@ -79,7 +86,58 @@ class _SignInState extends State<SignIn> {
 
   // 登录表单
   Widget _buildInputForm() {
-    return Container();
+    return Container(
+      margin: EdgeInsets.fromLTRB(40.w, 49.h, 40.w, 0),
+      child: Column(
+        children: <Widget>[
+          inputText(
+            controller: _email,
+            keyboardType: TextInputType.emailAddress,
+            hintText: "Email",
+            marginTop: 0,
+          ),
+          inputText(
+              controller: _password,
+              keyboardType: TextInputType.emailAddress,
+              hintText: "Password",
+              marginTop: 15,
+              isPassword: true),
+          Container(
+            height: 44.h,
+            margin: EdgeInsets.only(top: 15.h),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  width: 140.w,
+                  height: 44.h,
+                  child: GFButton(
+                    onPressed: () {
+                      BotToast.showText(text: _email.text.toString());
+                      print(_email.text.toString());
+                    },
+                    text: "Sign up",
+                    color: GFColors.DARK,
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  width: 140.w,
+                  height: 44.h,
+                  child: GFButton(
+                    onPressed: () {
+                      BotToast.showLoading(); //弹出一个加载动画
+                      BotToast.cleanAll();
+                    },
+                    text: "Sign in",
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   // 第三方登录
@@ -89,7 +147,15 @@ class _SignInState extends State<SignIn> {
 
   // 注册按钮
   Widget _buildSignupButton() {
-    return Container();
+    return Container(
+      margin: EdgeInsets.only(top: 250.h),
+      width: 295.w,
+      height: 44.h,
+      child: GFButton(
+        onPressed: () {},
+        text: 'Sign up',
+      ),
+    );
   }
 
   @override
@@ -100,9 +166,9 @@ class _SignInState extends State<SignIn> {
           children: <Widget>[
             _buildLogo(),
             _buildInputForm(),
-            Spacer(),
+//            Spacer(),
             _buildThirdPartyLogin(),
-            _buildSignupButton(),
+//            _buildSignupButton(),
           ],
         ));
   }
